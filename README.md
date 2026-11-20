@@ -25,7 +25,7 @@ because there Claude stops guessing how your project works:
 Rule of thumb: the second time you explain something to Claude, ask it to
 write it into one of these.
 
-## Adapt it with Claude (recommended)
+## Install
 
 ```sh
 claude "Fit the setup at https://github.com/mlynarczyk/claude-by-mac to me, following its ADAPT.md."
@@ -35,20 +35,6 @@ Or paste that sentence into a session you already have open.
 
 Claude reads your existing `~/.claude/`, asks what it can't find out (your plan,
 what you work on), and shows you the adapted files before installing anything.
-
-## Install as is
-
-```sh
-cp CLAUDE.md ~/.claude/CLAUDE.md          # merge by hand if you already have one
-mkdir -p ~/.claude/agents && cp agents/*.md ~/.claude/agents/
-mkdir -p ~/.claude/skills && cp -R skills/handoff skills/usage-review skills/pr-flow ~/.claude/skills/
-```
-
-Then set the default model in `~/.claude/settings.json`:
-
-```json
-{ "model": "opus" }
-```
 
 ## What each piece does
 

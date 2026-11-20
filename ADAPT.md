@@ -7,8 +7,8 @@ copy Mac's.
 ## 1. Read before asking
 
 - Every file in this repo.
-- Their `~/.claude/CLAUDE.md`, `~/.claude/agents/`, and the `model` key in
-  `~/.claude/settings.json`, if they exist.
+- Their `~/.claude/CLAUDE.md`, `~/.claude/agents/`, `~/.claude/skills/`, and
+  the `model` key in `~/.claude/settings.json`, if they exist.
 - Their OS (`uname`), and whether `magick` (ImageMagick) is installed.
 
 ## 2. Ask only what you could not find
@@ -28,8 +28,10 @@ One round of questions, at most these:
 - **Not on macOS:** replace `sips` in `designer.md` with ImageMagick
   (`magick <in> -resize 1600x1600 <out>`, crops with `-crop WxH+X+Y`).
 - **No design work:** leave out `designer.md`. **No code work:** leave out
-  `implementer.md` and the code-specific lines in `CLAUDE.md` (diff review,
-  failing checks, worktrees).
+  `implementer.md`, `skills/pr-flow/` and the code-specific lines in
+  `CLAUDE.md` (diff review, failing checks, worktrees, pull requests).
+  **Code but no GitHub or no PR review:** leave out `skills/pr-flow/` and the
+  `## Pull requests` section.
 - **Mac-specific references:** the usage figures in `CLAUDE.md` are from Mac's
   sessions, so keep them as rationale or cut them. If they already have a
   handoff skill, keep theirs and point the `/handoff` line in `CLAUDE.md` at
@@ -46,3 +48,16 @@ where judgment changes the outcome.
 Show them the adapted files and a diff against anything they already have in
 `~/.claude/`. Write nothing to `~/.claude/` until they say so, and never
 overwrite an existing file without showing what it replaces.
+
+Where each piece goes:
+
+- `CLAUDE.md` → `~/.claude/CLAUDE.md`, merged into theirs if they have one.
+- `agents/*.md` → `~/.claude/agents/`.
+- Each folder in `skills/` → `~/.claude/skills/<name>/`, scripts kept
+  executable.
+- The session model → `"model"` in `~/.claude/settings.json` (`"opus"`, or
+  their strongest everyday model). Edit only that key; keep the rest of the
+  file.
+
+Then tell them to start a new session, since `CLAUDE.md` and agents load at
+session start.
