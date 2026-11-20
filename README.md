@@ -41,7 +41,7 @@ what you work on), and shows you the adapted files before installing anything.
 ```sh
 cp CLAUDE.md ~/.claude/CLAUDE.md          # merge by hand if you already have one
 mkdir -p ~/.claude/agents && cp agents/*.md ~/.claude/agents/
-mkdir -p ~/.claude/skills && cp -R skills/handoff ~/.claude/skills/
+mkdir -p ~/.claude/skills && cp -R skills/handoff skills/usage-review ~/.claude/skills/
 ```
 
 Then set the default model in `~/.claude/settings.json`:
@@ -70,6 +70,11 @@ Then set the default model in `~/.claude/settings.json`:
 - **`skills/handoff/`**: writes a paste-ready prompt that starts a fresh
   session on the next piece of work, carrying only the decisions, traps and
   live state that session needs. Run it as `/handoff`.
+- **`skills/usage-review/`**: measures where your tokens went from the local
+  transcripts (main session vs each subagent type, model shares, runs past
+  200k context, what filled the context), proposes changes to `CLAUDE.md` or
+  the agents, and re-measures a change you made earlier. Run it as
+  `/usage-review`, or ask "where did my usage go this week?".
 
 ## Habits that save the most
 
@@ -83,7 +88,7 @@ Then set the default model in `~/.claude/settings.json`:
 ## Notes
 
 - The usage figures in `CLAUDE.md` (40% of cost past 200k context, etc.) are
-  from my own sessions. Yours will differ; the direction holds.
+  from my own sessions. Yours will differ; run `/usage-review` to get yours.
 - `designer.md` uses `sips`, which is macOS-only. Elsewhere, swap it for
   ImageMagick's `magick <in> -resize 1600x1600 <out>`.
 - If your plan doesn't include Fable, change `model: fable` to `opus` in
