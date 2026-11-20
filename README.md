@@ -28,9 +28,10 @@ write it into one of these.
 ## Adapt it with Claude (recommended)
 
 ```sh
-git clone https://github.com/mlynarczyk/claude-by-mac.git && cd claude-by-mac
-claude "Follow ADAPT.md and fit this setup to me."
+claude "Fit the setup at https://github.com/mlynarczyk/claude-by-mac to me, following its ADAPT.md."
 ```
+
+Or paste that sentence into a session you already have open.
 
 Claude reads your existing `~/.claude/`, asks what it can't find out (your plan,
 what you work on), and shows you the adapted files before installing anything.
