@@ -2,7 +2,16 @@
 
 Global config only. Nothing here is tied to a project.
 
-## Install
+## Adapt it with Claude (recommended)
+
+Clone the repo, open Claude Code in it and say:
+
+> Follow ADAPT.md and fit this setup to me.
+
+It reads your existing `~/.claude/`, asks what it can't find out (your plan,
+what you work on), and shows you the adapted files before installing anything.
+
+## Install as is
 
 ```sh
 cp CLAUDE.md ~/.claude/CLAUDE.md          # merge by hand if you already have one
