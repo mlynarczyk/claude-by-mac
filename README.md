@@ -57,8 +57,23 @@ To pick up later changes, ask it to "update my setup from claude-by-mac".
 - Put project rules in the project's own `CLAUDE.md`; keep the global one
   short. Both are re-read on every turn.
 
-The usage figures in `CLAUDE.md` are from my sessions. Run `/usage-review` to
-get yours.
+## What it changed for me
+
+On the Ultra plan, working heavily: up to 11 sessions at once, about 150
+merged PRs a week. Your plan, your models and how you work will move these
+numbers; `/usage-review` measures your own. From my transcripts:
+
+- In August my sessions ran on Fable. One week used up the Fable allowance in
+  four working days, and 86% of that was the session re-reading its own
+  history, not the work. With Opus as the session model and Fable only for
+  reviews, the next days kept the same pace.
+- In November, after tightening how work is split across subagents, a week of
+  about 150 merged PRs cost a third less per day than the same output two
+  weeks earlier (7.8M units per PR, down from 10.8M).
+- The reviews earn their cost: on one day, 4 of 7 Fable diff reviews found a
+  blocking bug.
+
+PR size varies week to week, so read the numbers as a direction.
 
 ## The other half
 
