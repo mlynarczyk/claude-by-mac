@@ -1,6 +1,6 @@
 ---
 name: pr-flow
-description: Ship a change through a worktree and a pull request the user reviews and merges, then watch the PR and act on its outcome. Use for feature and fix work in a git repo with a GitHub remote, and when opening, updating or following up on a PR.
+description: Ship a change through a worktree and a pull request the user reviews and merges, then watch the PR and act on its outcome. Use for feature and fix work in a project whose CLAUDE.md opts in (names a check command and base branch for pr-flow), when the user asks to set a project up for it, and when opening, updating or following up on a PR.
 ---
 
 # Worktree → PR → the user merges
@@ -10,13 +10,17 @@ before that and everything after it.
 
 ## What the project supplies
 
-Read these from the project's `CLAUDE.md`. If one is missing, ask once and
-offer to add it there:
+A project opts in by naming these in its `CLAUDE.md`, under a `pr-flow`
+heading or line. When the user asks to set a project up for it, find them
+(package scripts, Makefile, CI config, the default branch), confirm them with
+the user, and add them there:
 
 - **The check command**: the one command that must pass before a commit.
 - **The base branch**: `main` or `master`.
 - **Worktree setup**: what a fresh worktree needs beyond tracked files
   (dependencies, env files, build output), if anything.
+
+Needs `gh`, logged in to an account that can push to the repo.
 
 ## The loop
 

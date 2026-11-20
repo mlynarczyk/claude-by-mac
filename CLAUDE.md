@@ -69,10 +69,11 @@ A project's own subagent rules take precedence for the cases they cover.
 
 ## Pull requests
 
-In a git repo with a GitHub remote, feature and fix work goes through a
-worktree and a PR the user reviews and merges: follow the `pr-flow` skill,
-including watching the PR after opening it. A project's `CLAUDE.md` overrides
-the skill where they differ.
+When the project's `CLAUDE.md` names a check command and a base branch for
+`pr-flow`, feature and fix work goes through a worktree and a PR the user
+reviews and merges: follow the `pr-flow` skill, including watching the PR
+after opening it. The project's `CLAUDE.md` overrides the skill where they
+differ. Elsewhere, commit as that project does.
 
 ## Output style
 
