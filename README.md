@@ -2,6 +2,29 @@
 
 Global config only. Nothing here is tied to a project.
 
+That's half the setup. The other half lives in each project's `.claude/`
+folder, gets committed with the code, and is where most of the gains are,
+because there Claude stops guessing how your project works:
+
+- **A project `CLAUDE.md`**: the codebase's rules and conventions. Keep it to
+  rules. Lists of files, counts and status go stale, and it is re-read every
+  turn.
+- **Path-scoped rules** in `.claude/rules/`: detail that loads only when Claude
+  opens matching files, so frontend rules don't cost tokens during backend
+  work.
+- **Project agents** in `.claude/agents/`: agents that know the project's
+  tools. I use `verify-check`, which runs a scripted browser check against the
+  app and reports pass/fail with screenshots, and a `designer` tied to my
+  drawing kit and design folder. The `designer.md` here is a stripped-down
+  copy of that one.
+- **Skills** in `.claude/skills/<name>/SKILL.md`: workflows you repeat, written
+  once. Examples: how to launch and verify the app, add a migration, run a
+  review round. Claude loads one when the task matches, or you call it as
+  `/name`.
+
+Rule of thumb: the second time you explain something to Claude, ask it to
+write it into one of these.
+
 ## Adapt it with Claude (recommended)
 
 Clone the repo, open Claude Code in it and say:
