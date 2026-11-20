@@ -27,11 +27,12 @@ write it into one of these.
 
 ## Adapt it with Claude (recommended)
 
-Clone the repo, open Claude Code in it and say:
+```sh
+git clone https://github.com/mlynarczyk/claude-by-mac.git && cd claude-by-mac
+claude "Follow ADAPT.md and fit this setup to me."
+```
 
-> Follow ADAPT.md and fit this setup to me.
-
-It reads your existing `~/.claude/`, asks what it can't find out (your plan,
+Claude reads your existing `~/.claude/`, asks what it can't find out (your plan,
 what you work on), and shows you the adapted files before installing anything.
 
 ## Install as is
