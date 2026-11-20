@@ -31,8 +31,9 @@ One round of questions, at most these:
   `implementer.md` and the code-specific lines in `CLAUDE.md` (diff review,
   failing checks, worktrees).
 - **Mac-specific references:** the usage figures in `CLAUDE.md` are from Mac's
-  sessions, so keep them as rationale or cut them. `/handoff` is Mac's own
-  skill; reword it as "ask for a handoff prompt" unless they have one.
+  sessions, so keep them as rationale or cut them. If they already have a
+  handoff skill, keep theirs and point the `/handoff` line in `CLAUDE.md` at
+  it instead of installing `skills/handoff/`.
 - **Their existing `CLAUDE.md` wins** where it conflicts with this one. Name
   each conflict instead of resolving it silently.
 

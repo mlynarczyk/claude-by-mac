@@ -41,6 +41,7 @@ what you work on), and shows you the adapted files before installing anything.
 ```sh
 cp CLAUDE.md ~/.claude/CLAUDE.md          # merge by hand if you already have one
 mkdir -p ~/.claude/agents && cp agents/*.md ~/.claude/agents/
+mkdir -p ~/.claude/skills && cp -R skills/handoff ~/.claude/skills/
 ```
 
 Then set the default model in `~/.claude/settings.json`:
@@ -66,11 +67,16 @@ Then set the default model in `~/.claude/settings.json`:
   Claude can drive (a design-tool MCP, or HTML rendered to PNG) and
   ImageMagick for the sheet. Ask Claude to "write a spec for a designer round
   on X" and it will use the shape in the agent file.
+- **`skills/handoff/`**: writes a paste-ready prompt that starts a fresh
+  session on the next piece of work, carrying only the decisions, traps and
+  live state that session needs. Run it as `/handoff`.
 
 ## Habits that save the most
 
 - Start a fresh session between unrelated tasks.
-- Past ~100 turns, ask Claude for a handoff prompt and continue in a new session.
+- Take the handoff when it's offered. Past ~100 turns, `CLAUDE.md` has Claude
+  offer `/handoff` at the next natural break; paste the prompt it writes into
+  a new session. You can run `/handoff` yourself any time.
 - Put project rules in the project's own `CLAUDE.md`; keep the global one short.
   Both are re-read on every turn.
 
@@ -78,8 +84,6 @@ Then set the default model in `~/.claude/settings.json`:
 
 - The usage figures in `CLAUDE.md` (40% of cost past 200k context, etc.) are
   from my own sessions. Yours will differ; the direction holds.
-- `/handoff` is a custom skill I have; without it, just ask "write a handoff
-  prompt for a fresh session".
 - `designer.md` uses `sips`, which is macOS-only. Elsewhere, swap it for
   ImageMagick's `magick <in> -resize 1600x1600 <out>`.
 - If your plan doesn't include Fable, change `model: fable` to `opus` in
