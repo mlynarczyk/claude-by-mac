@@ -41,7 +41,7 @@ what you work on), and shows you the adapted files before installing anything.
 ```sh
 cp CLAUDE.md ~/.claude/CLAUDE.md          # merge by hand if you already have one
 mkdir -p ~/.claude/agents && cp agents/*.md ~/.claude/agents/
-mkdir -p ~/.claude/skills && cp -R skills/handoff skills/usage-review ~/.claude/skills/
+mkdir -p ~/.claude/skills && cp -R skills/handoff skills/usage-review skills/pr-flow ~/.claude/skills/
 ```
 
 Then set the default model in `~/.claude/settings.json`:
@@ -75,6 +75,13 @@ Then set the default model in `~/.claude/settings.json`:
   200k context, what filled the context), proposes changes to `CLAUDE.md` or
   the agents, and re-measures a change you made earlier. Run it as
   `/usage-review`, or ask "where did my usage go this week?".
+- **`skills/pr-flow/`**: feature and fix work goes through a worktree and a
+  pull request you review and merge. Claude commits, opens the PR in a set
+  shape (`## In plain terms`, then verification), then watches it with
+  `pr-watch.sh`: it fixes merge conflicts and cleans up the worktree once you
+  merge, without being asked. Each project's `CLAUDE.md` names its check
+  command and base branch; if it doesn't, Claude asks once and offers to add
+  them.
 
 ## Habits that save the most
 

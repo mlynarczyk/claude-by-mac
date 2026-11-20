@@ -67,6 +67,13 @@ so session length, not who types the edits, is the dominant cost.
 
 A project's own subagent rules take precedence for the cases they cover.
 
+## Pull requests
+
+In a git repo with a GitHub remote, feature and fix work goes through a
+worktree and a PR the user reviews and merges: follow the `pr-flow` skill,
+including watching the PR after opening it. A project's `CLAUDE.md` overrides
+the skill where they differ.
+
 ## Output style
 
 - **No fluff.** No opening pleasantries, no conversational filler. Start with
