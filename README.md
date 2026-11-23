@@ -1,9 +1,28 @@
 # claude-by-mac
 
-A Claude Code setup that spends tokens where they change the outcome. The
-main session stays short, bulk work runs in subagents with their own context,
-and the most expensive model is called only for judgment: plan reviews, design
-direction, stuck debugging.
+A Claude Code setup for handing work off and coming back to pull requests
+ready to review. Describe the work, leave Claude to it, during the day or
+overnight, and each PR you come back to says what changed and why before it
+shows any code, and how it was checked.
+
+What gets it there:
+
+- **Sessions keep going without you.** An unattended session hands off to a
+  fresh one at a natural break (`/handoff tab`), up to three in a row, so a
+  long job doesn't stall on a full context.
+- **Every PR walks you through itself.** `pr-flow` opens it with
+  `## In plain terms`: the change as one real line from the diff, and what it
+  means for someone using it. Then `## Verification`: the check's result, and
+  a test broken on purpose and watched failing. A visual change carries before
+  and after screenshots.
+- **Mistakes are caught before you read it.** A plan gets a Fable review
+  before anything is built, and a substantive diff gets a review before the
+  PR opens: Fable for high-stakes changes, Opus for the rest.
+- **It cleans up after you merge.** The PR watcher fixes merge conflicts and
+  removes the worktree once a PR lands.
+- **It runs on one plan.** The main session stays short, bulk work runs in
+  subagents with their own context, and the most expensive model is called
+  only for judgment.
 
 ## Install
 
@@ -63,9 +82,10 @@ To pick up later changes, ask it to "update my setup from claude-by-mac".
 ## What it changed for me
 
 On the Ultra plan, working heavily: up to 11 sessions at once, about 150
-merged PRs a week. Your plan, your models and how you work will move these
-numbers; `/usage-review` measures your own. From my transcripts:
+merged PRs a week. From my transcripts:
 
+- The reviews earn their cost: on one day, 4 of 7 Fable diff reviews found a
+  blocking bug.
 - In August my sessions ran on Fable. One week used up the Fable allowance in
   four working days, and 86% of that was the session re-reading its own
   history, not the work. With Opus as the session model and Fable only for
@@ -73,10 +93,10 @@ numbers; `/usage-review` measures your own. From my transcripts:
 - In November, after tightening how work is split across subagents, a week of
   about 150 merged PRs cost a third less per day than the same output two
   weeks earlier (7.8M units per PR, down from 10.8M).
-- The reviews earn their cost: on one day, 4 of 7 Fable diff reviews found a
-  blocking bug.
 
-PR size varies week to week, so read the numbers as a direction.
+PR size varies week to week, so read the numbers as a direction. Your plan,
+your models and how you work will move them; `/usage-review` measures your
+own.
 
 ## The other half
 
@@ -99,6 +119,12 @@ gains are, because there Claude stops guessing how your project works:
   once. Examples: how to launch and verify the app, add a migration, run a
   review round. Claude loads one when the task matches, or you call it as
   `/name`.
+- **A backlog and a triage round**: unattended work leaves follow-ups behind
+  (a review finding left for later, a gap a PR names). Mine go into a backlog
+  kept as files in the repo, and a `/triage` skill gathers the follow-ups from
+  merged PRs, shapes each into a card, and puts them on one local page I
+  decide in a single sitting. It is tied to my backlog script, so it isn't
+  here; ask Claude to build one around wherever you keep work.
 
 Rule of thumb: the second time you explain something to Claude, ask it to
 write it into one of these.
