@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: Write a paste-ready prompt that starts a fresh session on the next piece of work. Use when the user asks for a handoff, a prompt for a new session, says the session is getting big or long, or wants to continue elsewhere.
+description: Write a paste-ready prompt that starts a fresh session on the next piece of work. Use when the user asks for a handoff, a prompt for a new session, says the session is getting big or long, or wants to continue elsewhere. `/handoff tab` also opens the new session in an iTerm tab.
 ---
 
 # Handoff prompt for a fresh session
@@ -61,7 +61,58 @@ Informing is the feature doc's job.
 5. Outside the block, one line at most: something left running that the user
    may want to stop, or which next task you picked. Nothing else.
 
-Don't write the prompt to a file unless asked: it's a message, not a document.
+Don't write the prompt to a file unless asked, or opening it in a tab (below):
+it's a message, not a document.
 If the project keeps memory, check that the durable parts of the work (a user
 direction, a trap that will outlive the task) are in memory or the feature
 doc **before** writing the handoff, so the prompt can point at them.
+
+## Opening it in a new tab
+
+When the user runs `/handoff tab`, or says "open it" after a handoff, start the
+fresh session for them instead of leaving the block to paste:
+
+1. Write the block's contents (without the fence) to
+   `<scratchpad>/handoff-<slug>.md`, the slug naming the next task.
+2. Open an iTerm tab running `claude` with it as the first message, from the
+   repo root of this session:
+
+   ```bash
+   osascript <<'EOF'
+   tell application "iTerm"
+     activate
+     tell current window
+       create tab with default profile
+       tell current session
+         write text "cd <repo root> && claude \"$(cat <file>)\""
+       end tell
+     end tell
+   end tell
+   EOF
+   ```
+
+   `$(cat …)` expands in the new tab's shell, so backticks and `$` in the
+   prompt are passed through as text.
+3. If `osascript` exits non-zero (iTerm not running, Automation permission
+   refused), print the block as usual and give the file's path.
+4. Reply in one line: the tab is open, and the file's full path in case the
+   user needs to paste it by hand. You cannot see the tab, so say so rather
+   than claiming the session started.
+
+### Unattended
+
+When the session is unattended (global CLAUDE.md; also called unsupervised,
+hands-off or overnight), nobody is there to paste the block, so:
+
+- **Finish first.** Commit the unit in hand. Stop every background watcher
+  and server this session started, and list each one the next session must
+  restart (a PR watcher, a dev server) under Live state with its
+  command, so two sessions never work the same tree.
+- **Carry the mark.** The block's first line is
+  `Unattended session, generation <n> of 3: hand off with /handoff tab, not an offer.`
+  with `n` one past this session's (1 if it had none). At generation 3, don't
+  open a tab: print the block and stop, so a bad loop cannot fan out.
+- **Same permission mode.** Add `--permission-mode <mode>` to the `claude`
+  command, naming this session's mode (`auto`, `acceptEdits`, …). A tab that
+  stops on its first permission prompt does nothing until morning.
+- **Then stop.** After the tab opens, do no more work in this session.

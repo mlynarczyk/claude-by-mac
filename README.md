@@ -35,7 +35,10 @@ To pick up later changes, ask it to "update my setup from claude-by-mac".
   "write a spec for a designer round on X".
 - **`skills/handoff/`**: writes a paste-ready prompt that starts a fresh
   session on the next piece of work, carrying only the decisions, traps and
-  live state that session needs. Run it as `/handoff`.
+  live state that session needs. Run it as `/handoff`; `/handoff tab` also
+  opens the new session in an iTerm tab. Tell Claude a session is unattended
+  (or unsupervised, hands-off, overnight) and it chains tabs on its own, up to
+  three sessions.
 - **`skills/usage-review/`**: measures where your tokens went from the local
   transcripts (main session vs each subagent type, model shares, runs past
   200k context, what filled the context), proposes changes to `CLAUDE.md` or

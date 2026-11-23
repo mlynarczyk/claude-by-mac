@@ -64,6 +64,11 @@ so session length, not who types the edits, is the dominant cost.
   PR opened, a plan approved, a round reported), in one line. A 1M window
   means a session never compacts, and past 200k context each turn re-reads
   the whole of it: on 2026-11-18, 40% of main-session cost was past 200k.
+- **In an unattended session, run `/handoff tab` instead of offering it**, at
+  the same moments, then stop working: the user is not there to paste it. A
+  session is unattended only when the user said so in it, or its opening
+  prompt says so (a chained one carries the line). "Unattended",
+  "unsupervised", "hands-off" and "overnight" all mean it.
 
 A project's own subagent rules take precedence for the cases they cover.
 
