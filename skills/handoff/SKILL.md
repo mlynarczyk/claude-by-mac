@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: Write a paste-ready prompt that starts a fresh session on the next piece of work. Use when the user asks for a handoff, a prompt for a new session, says the session is getting big or long, or wants to continue elsewhere. `/handoff tab` also opens the new session in a new Orca or iTerm tab.
+description: Write a paste-ready prompt that starts a fresh session on the next piece of work. Use when the user asks for a handoff, a prompt for a new session, says the session is getting big or long, or wants to continue elsewhere. `/handoff tab` also opens the new session in a new Orca, Ghostty or iTerm tab.
 ---
 
 # Handoff prompt for a fresh session
@@ -82,11 +82,11 @@ fresh session for them instead of leaving the block to paste:
    ```
 
    It opens the tab in the terminal this session runs in: Orca (macOS or
-   Linux, through the `orca` CLI) or iTerm (macOS, through `osascript`). The
-   prompt is read in the new tab's shell, so backticks and `$` pass through
-   as text.
+   Linux, through the `orca` CLI), Ghostty (Linux, through `ghostty +new-tab`)
+   or iTerm (macOS, through `osascript`). The prompt is read in the new tab's
+   shell, so backticks and `$` pass through as text.
 3. If it exits non-zero (2 is an unsupported terminal; otherwise iTerm's
-   Automation permission refused or Orca unreachable), print the block as
+   Automation permission refused, or Orca or Ghostty unreachable), print the block as
    usual and give the file's path.
 4. Reply in one line: the tab is open, and the file's full path in case the
    user needs to paste it by hand. You cannot see the tab, so say so rather
