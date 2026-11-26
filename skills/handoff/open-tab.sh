@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Open a new terminal tab running `claude` with a handoff prompt as its first message,
-# in whichever terminal this session runs in: Orca (macOS or Linux) or iTerm (macOS).
+# in whichever terminal this session runs in: Orca (macOS or Linux), Ghostty (Linux) or iTerm (macOS).
 #
 # Usage: open-tab.sh <repo-root> <prompt-file> [extra claude args...]
 # Exits 2 when the terminal is unsupported, so the caller prints the prompt instead.
@@ -32,6 +32,19 @@ if [ "${TERM_PROGRAM:-}" = "Orca" ] || [ -n "${ORCA_WORKTREE_ID:-}" ]; then
     "$orca" terminal create ${ORCA_WORKTREE_ID:+--worktree "id:$ORCA_WORKTREE_ID"} \
       --title "$title" --command "$cmd" --focus >/dev/null
   echo "opened an Orca tab"
+  exit 0
+fi
+
+if [ "${TERM_PROGRAM:-}" = "ghostty" ] && [ "$(uname)" = "Linux" ]; then
+  # +new-tab is absent from `ghostty +help` but works over D-Bus. --surface-id puts the
+  # tab in this session's window; the login shell gives claude the profile's PATH, and
+  # the trailing exec keeps the tab open after claude exits, as Orca and iTerm do.
+  sh=${SHELL:-bash}
+  title="handoff: $(basename "$file" .md)"
+  title=${title/handoff: handoff-/handoff: }
+  ghostty +new-tab ${GHOSTTY_SURFACE_ID:+--surface-id="$GHOSTTY_SURFACE_ID"} \
+    --title="$title" -e "$sh" -lic "$cmd; exec $(printf '%q' "$sh") -l" >/dev/null
+  echo "opened a Ghostty tab"
   exit 0
 fi
 
