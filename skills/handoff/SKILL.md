@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: Write a paste-ready prompt that starts a fresh session on the next piece of work. Use when the user asks for a handoff, a prompt for a new session, says the session is getting big or long, or wants to continue elsewhere. `/handoff tab` also opens the new session in an iTerm tab.
+description: Write a paste-ready prompt that starts a fresh session on the next piece of work. Use when the user asks for a handoff, a prompt for a new session, says the session is getting big or long, or wants to continue elsewhere. `/handoff tab` also opens the new session in a new Orca or iTerm tab.
 ---
 
 # Handoff prompt for a fresh session
@@ -74,27 +74,20 @@ fresh session for them instead of leaving the block to paste:
 
 1. Write the block's contents (without the fence) to
    `<scratchpad>/handoff-<slug>.md`, the slug naming the next task.
-2. Open an iTerm tab running `claude` with it as the first message, from the
-   repo root of this session:
+2. Open a tab running `claude` with it as the first message, from the repo
+   root of this session:
 
    ```bash
-   osascript <<'EOF'
-   tell application "iTerm"
-     activate
-     tell current window
-       create tab with default profile
-       tell current session
-         write text "cd <repo root> && claude \"$(cat <file>)\""
-       end tell
-     end tell
-   end tell
-   EOF
+   ~/.claude/skills/handoff/open-tab.sh <repo root> <file> [extra claude args]
    ```
 
-   `$(cat …)` expands in the new tab's shell, so backticks and `$` in the
-   prompt are passed through as text.
-3. If `osascript` exits non-zero (iTerm not running, Automation permission
-   refused), print the block as usual and give the file's path.
+   It opens the tab in the terminal this session runs in: Orca (macOS or
+   Linux, through the `orca` CLI) or iTerm (macOS, through `osascript`). The
+   prompt is read in the new tab's shell, so backticks and `$` pass through
+   as text.
+3. If it exits non-zero (2 is an unsupported terminal; otherwise iTerm's
+   Automation permission refused or Orca unreachable), print the block as
+   usual and give the file's path.
 4. Reply in one line: the tab is open, and the file's full path in case the
    user needs to paste it by hand. You cannot see the tab, so say so rather
    than claiming the session started.
@@ -112,7 +105,7 @@ hands-off or overnight), nobody is there to paste the block, so:
   `Unattended session, generation <n> of 3: hand off with /handoff tab, not an offer.`
   with `n` one past this session's (1 if it had none). At generation 3, don't
   open a tab: print the block and stop, so a bad loop cannot fan out.
-- **Same permission mode.** Add `--permission-mode <mode>` to the `claude`
-  command, naming this session's mode (`auto`, `acceptEdits`, …). A tab that
+- **Same permission mode.** Pass `--permission-mode <mode>` as an extra
+  claude arg to `open-tab.sh`, naming this session's mode (`auto`, `acceptEdits`, …). A tab that
   stops on its first permission prompt does nothing until morning.
 - **Then stop.** After the tab opens, do no more work in this session.

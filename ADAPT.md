@@ -30,10 +30,11 @@ One round of questions, at most these:
   and reserved for judgment calls.
 - **Not on macOS:** replace `sips` in `designer.md` with ImageMagick
   (`magick <in> -resize 1600x1600 <out>`, crops with `-crop WxH+X+Y`).
-- **Not on iTerm:** the `/handoff tab` section of `skills/handoff/SKILL.md`
-  opens a tab through `osascript` and iTerm. Rewrite that command for their
-  terminal (Terminal.app, Ghostty, tmux `new-window`), or drop the section
-  and the unattended bullet in `CLAUDE.md` if they don't want it.
+- **Not on Orca or iTerm:** `skills/handoff/open-tab.sh` opens the
+  `/handoff tab` tab in Orca (macOS or Linux) or iTerm (macOS) and exits 2
+  anywhere else. Add a branch for their terminal (Terminal.app, Ghostty, tmux
+  `new-window`), or drop the tab section of `skills/handoff/SKILL.md` and the
+  unattended bullet in `CLAUDE.md` if they don't want it.
 - **No design work:** leave out `designer.md`. **No code work:** leave out
   `implementer.md`, `skills/pr-flow/` and the code-specific lines in
   `CLAUDE.md` (diff review, failing checks, worktrees, pull requests).
